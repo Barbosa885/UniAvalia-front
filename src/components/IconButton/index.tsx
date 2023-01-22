@@ -9,6 +9,7 @@ import Link from 'next/link'
 export type IconButtonProps = MuiIconButtonProps & {
   Icon: typeof MuiSvgIcon
   filled?: boolean
+  size: 'small' | 'medium' | 'large'
 }
 
 const FilledIconButton = styled(MuiIconButton)(({ theme }) => ({
@@ -28,7 +29,7 @@ export const IconButton = ({
 
   return (
     <Component LinkComponent={Link} {...props}>
-      <Icon />
+      <Icon fontSize={props.size} />
     </Component>
   )
 }
