@@ -1,11 +1,10 @@
-@tailwind base;
+@import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-body, html {
+body {
   margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
+  padding: 0;  font-family: 'Poppins', sans-serif;
   background-color: #e5faff;
   box-sizing: border-box;
 }
