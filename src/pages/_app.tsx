@@ -1,5 +1,7 @@
 import type { AppProps } from 'next/app'
 
+import '@fontsource/poppins'
+
 import '../styles/globals.css'
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
