@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { Button } from '@mui/material'
+import clsx from 'clsx'
 
 const SwitchContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -18,10 +19,12 @@ const SwitchContainer = styled('div')(({ theme }) => ({
   '&::after': {
     content: '""',
     position: 'absolute',
-    top: '.25rem',
-    bottom: '.25rem',
+    top: 0,
+    bottom: 0,
     left: '50%',
-    right: '.25rem',
+    right: 0,
+    margin: '.25rem',
+    marginLeft: '.15rem',
 
     borderRadius: 10,
     backgroundColor: theme.palette.secondary.main,
@@ -30,8 +33,10 @@ const SwitchContainer = styled('div')(({ theme }) => ({
   },
 
   '&.isTeacher::after': {
-    left: '.25rem',
+    left: 0,
     right: '50%',
+    margin: '.25rem',
+    marginRight: '.15rem',
   },
 }))
 
@@ -40,6 +45,7 @@ const SwitchButton = styled(Button)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
   verticalAlign: 'middle',
   height: '100%',
+  width: '50%',
   fontSize: 16,
   borderRadius: 10,
   padding: '0 .5rem',
@@ -64,7 +70,7 @@ export const Switch = ({
   }
 
   return (
-    <SwitchContainer className={isTeacher ? 'isTeacher' : ''}>
+    <SwitchContainer className={clsx({ isTeacher })}>
       <SwitchButton
         disableRipple
         onClick={() => {
