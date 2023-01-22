@@ -2,30 +2,35 @@ import styled from '@emotion/styled'
 import {
   Button as MuiButton,
   ButtonProps as MuiButtonProps,
-  IconButton as MuiIconButton,
-  IconButtonProps as MuiIconButtonProps,
-  SvgIcon as MuiSvgIcon,
 } from '@mui/material'
+import Link from 'next/link'
 
-export type IconButtonProps = MuiIconButtonProps & {
-  Icon: typeof MuiSvgIcon
+export type ButtonProps = MuiButtonProps & {
+  rounded?: boolean
 }
 
-export type ButtonProps = MuiButtonProps
+const DefaultButton = styled(MuiButton)`
+  height: 72px;
+  border-radius: 10px;
+  font-size: 18px;
+`
 
-export const IconButton = ({
-  Icon,
-  ...props
-}: IconButtonProps): JSX.Element => (
-  <MuiIconButton {...props}>
-    <Icon />
-  </MuiIconButton>
-)
-
-const StyledButton = styled(MuiButton)`
+const RoundedButton = styled(MuiButton)`
   border-radius: 9999px;
 `
 
-export const Button = ({ ...props }: ButtonProps): JSX.Element => {
-  return <StyledButton variant="contained" color="primary" {...props} />
+export const Button = ({
+  rounded = false,
+  ...props
+}: ButtonProps): JSX.Element => {
+  const Component = rounded ? RoundedButton : DefaultButton
+
+  return (
+    <Component
+      LinkComponent={Link}
+      variant="contained"
+      color="primary"
+      {...props}
+    />
+  )
 }

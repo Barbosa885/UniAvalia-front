@@ -1,14 +1,18 @@
 import { ArrowBackRounded } from '@mui/icons-material'
 
-import { Button, IconButton } from '../components/Button'
+import { Button } from '../components/Button'
+import { IconButton } from '../components/IconButton'
 
 export default function Home(): JSX.Element {
   return (
     <>
       <h1 className="text-8xl">UniAvalia</h1>
-      <IconButton Icon={ArrowBackRounded} />
-      <Button>Avançar</Button>
-      <Button color="secondary">Avançar</Button>
+      <IconButton color="primary" Icon={ArrowBackRounded} />
+      <IconButton color="secondary" Icon={ArrowBackRounded} filled />
+      <Button rounded href="/search">
+        Pesquisar
+      </Button>
+      <Button color="secondary">Cadastrar</Button>
     </>
   )
 }

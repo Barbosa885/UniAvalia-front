@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material'
+import { createTheme, ThemeOptions } from '@mui/material'
 
-export const theme = createTheme({
+const themeOptions: ThemeOptions = {
   typography: {
     button: {
       textTransform: 'none',
@@ -20,4 +20,6 @@ export const theme = createTheme({
       default: '#e5faff',
     },
   },
-})
+}
+
+export const theme = createTheme(themeOptions)
