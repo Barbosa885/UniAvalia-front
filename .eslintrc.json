@@ -29,7 +29,9 @@
     "no-else-return": "error",
     "curly": ["error", "multi", "consistent"],
     "linebreak-style": ["error", "unix"],
-    "multiline-ternary": ["error", "never"]
+    "multiline-ternary": ["error", "never"],
+    "indent": "off",
+    "@typescript-eslint/indent": "off"
   },
   "overrides": [
     {
