@@ -7,6 +7,7 @@ const buildEslintCommand = (filenames) =>
 
 module.exports = {
   '*.{ts,tsx}': [
+    "bash -c tsc --pretty --noEmit",
     "yarn format",
     buildEslintCommand
   ],

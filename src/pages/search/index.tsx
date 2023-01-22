@@ -1,7 +1,7 @@
 import { ArrowBackRounded } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 
-import { IconButton } from '../../components/IconButton'
+import { IconButton } from '../../components/Button'
 
 export default function Search(): JSX.Element {
   const router = useRouter()
@@ -10,13 +10,14 @@ export default function Search(): JSX.Element {
     <>
       <h1 className="text-8xl">UniAvalia</h1>
       <IconButton
+        size="large"
         onClick={() => {
           router.back()
         }}
         color="primary"
         Icon={ArrowBackRounded}
       />
-      <h2 className="text-4xl">Pesquisar</h2>
+      <h2 className="text-4xl">Pesquisar?</h2>
     </>
   )
 }

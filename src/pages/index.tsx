@@ -1,9 +1,11 @@
 import { ArrowBackRounded, SearchRounded } from '@mui/icons-material'
 
-import { Button } from '../components/Button'
-import { FloatingButton } from '../components/FloatingButton'
-import { IconButton } from '../components/IconButton'
-import { LinkButton } from '../components/LinkButton'
+import {
+  Button,
+  FloatingButton,
+  IconButton,
+  LinkButton,
+} from '../components/Button'
 
 export default function Home(): JSX.Element {
   return (
