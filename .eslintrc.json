@@ -1,3 +1,75 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "jest": true
+  },
+  "plugins": [
+    "react",
+    "prettier",
+    "unused-imports",
+    "simple-import-sort"
+  ],
+  "extends": [
+    "plugin:react/recommended",
+    "standard-with-typescript",
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "unused-imports/no-unused-imports": "error",
+    "space-before-function-paren": "off",
+    "@typescript-eslint/space-before-function-paren": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "semi": ["error", "never"],
+    "arrow-parens": ["error", "as-needed"],
+    "no-else-return": "error",
+    "curly": ["error", "multi", "consistent"],
+    "linebreak-style": ["error", "unix"],
+    "multiline-ternary": ["error", "never"]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              // Packages `react` related packages come first.
+              ["^react", "^@?\\w"],
+              // Internal packages.
+              ["^(@|components)(/.*|$)"],
+              // Side effect imports.
+              ["^\\u0000"],
+              // Parent imports. Put `..` last.
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              // Other relative imports. Put same-folder imports and `.` last.
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              // Style imports.
+              ["^.+\\.?(css)$"]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  }
 }
+
