@@ -11,11 +11,6 @@ const PaperStyled = styled(Paper)(({ theme }) => ({
   borderRadius: 10,
   boxSizing: 'border-box',
 
-  p: {
-    fontSize: 16,
-    margin: 0,
-  },
-
   '.agree-btns': {
     position: 'absolute',
     bottom: 0,
@@ -27,9 +22,15 @@ const PaperStyled = styled(Paper)(({ theme }) => ({
   },
 }))
 
-const PStyled = styled.p(({ theme }) => ({
+const TimestampStyled = styled.p(({ theme }) => ({
   fontSize: 14,
   color: theme.palette.grey[500],
+  margin: 0,
+}))
+
+const MessageStyled = styled.p(({ theme }) => ({
+  fontSize: 14,
+  margin: 0,
 }))
 
 export interface CommentProps {
@@ -50,11 +51,11 @@ export const Comment = ({
 
   return (
     <PaperStyled elevation={3}>
-      <PStyled className="comment-timestamp">
+      <TimestampStyled>
         {formattedDate} - Cursou em {semester}
-      </PStyled>
+      </TimestampStyled>
 
-      <p className="comment-message">{message}</p>
+      <MessageStyled>{message}</MessageStyled>
 
       <div className="agree-btns">
         <Agree onClick={onAgree} active={agreed} count={agrees} />
