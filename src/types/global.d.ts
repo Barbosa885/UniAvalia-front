@@ -1,10 +1,22 @@
+declare interface IClass {
+  teacherId: number
+  teacherName: string
+
+  disciplineId: number
+  disciplineName: string
+
+  comments: IComment[]
+}
+
 declare interface IComment {
   id: number
   message: string
-  semester: string
   date: Date
   agrees: number
   disagrees: number
+
+  /** static */
+  semester: string
   agreed: boolean
   disagreed: boolean
 }
