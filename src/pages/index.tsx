@@ -8,6 +8,7 @@ import {
   LinkButton,
 } from '../components/Button'
 import { Comment } from '../components/Comment'
+import { CommentInput } from '../components/CommentInput'
 
 const exampleComment: IComment = {
   id: 0,
@@ -75,6 +76,14 @@ export default function Home(): JSX.Element {
         </Button>
         <Button color="secondary">Cadastrar</Button>
         <LinkButton href="/search">Procurar</LinkButton>
+      </div>
+
+      <div style={{ padding: 20 }}>
+        <CommentInput
+          handleSubmit={value => {
+            console.log(`value: ${value}`)
+          }}
+        />
       </div>
 
       <div
