@@ -1,9 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  images: {
-    domains: ['www.provafacilnaweb.com.br'],
-  },
-}
+const withPWA = require("next-pwa")({
+    disable: process.env.NODE_ENV != 'production', 
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    sw: '/sw.js',
+});
 
-module.exports = nextConfig
+const nextConfig = withPWA({
+  reactStricMode: true,
+})
+
+module.exports = nextConfig;
