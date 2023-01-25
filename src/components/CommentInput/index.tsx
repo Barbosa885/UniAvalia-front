@@ -10,7 +10,6 @@ import { IconButton } from '../Button'
 const FormStyled = styled.form({
   position: 'relative',
   width: '100%',
-  maxWidth: '600px',
 })
 
 const IconButtonStyled = styled(IconButton)({

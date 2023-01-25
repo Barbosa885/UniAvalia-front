@@ -5,6 +5,10 @@ import { Button, ButtonProps } from '@mui/material'
 const ButtonStyled = styled(Button)(({ theme }) => ({
   padding: '4px 8px',
   borderRadius: 9999,
+
+  p: {
+    margin: 0,
+  },
 }))
 
 export type AgreeProps = ButtonProps & {
