@@ -1,8 +1,9 @@
 {
     "theme_color": "#f69435",
-    "background_color": "#f69435",
-    "display": "browser",
+    "background_color": "#070400",
+    "display": "standalone",
     "scope": "/",
+    "lang": "pt-BR",
     "start_url": "/https://uniavalia.vercel.app/",
     "name": "UniAvalia",
     "short_name": "UniAvalia",
