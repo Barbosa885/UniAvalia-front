@@ -6,7 +6,21 @@ import {
   IconButton,
   LinkButton,
 } from '../components/Button'
+import SearchCard from '../components/Card/SearchResult'
 import { CommentInput } from '../components/CommentInput'
+
+const exampleComment: IComment = {
+  id: 0,
+  message:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia',
+  agrees: 15,
+  disagrees: 3,
+  date: new Date(),
+  semester: '2021.1',
+  agreed: false,
+  disagreed: true,
+}
+
 export default function Home(): JSX.Element {
   return (
     <>
@@ -20,6 +34,10 @@ export default function Home(): JSX.Element {
           Icon={ArrowBackRounded}
           filled
         />
+      </div>
+
+      <div>
+        <SearchCard></SearchCard>
       </div>
 
       <div className="">
