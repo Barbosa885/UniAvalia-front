@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { ArrowBackRounded } from '@mui/icons-material'
 import dynamic from 'next/dynamic'
@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { IconButton } from '../../../../components/Button'
 import { Comment } from '../../../../components/Comment'
 import { CommentInput } from '../../../../components/CommentInput'
+import apiService from '../../../../services/api'
 
 const TEACHER_IMG =
   'https://www.provafacilnaweb.com.br/wp-content/uploads/2020/10/retencao-de-alunos-entenda-o-papel-do-professor-para-evitar-a-evasao-academica-capa-2048x1367-1-1024x684.jpg'
@@ -24,18 +25,6 @@ const exampleComment: IComment = {
   disagreed: true,
 }
 
-const exampleClass: IDiscipline = {
-  teacherId: 0,
-  disciplineId: 0,
-  disciplineName: 'Matemática',
-  teacherName: 'João da Silva',
-  comments: [
-    { ...exampleComment, id: 1 },
-    { ...exampleComment, id: 2 },
-    { ...exampleComment, id: 3 },
-  ],
-}
-
 const ContainerStyled = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,8 +33,8 @@ const ContainerStyled = styled.div`
 `
 
 const TeacherContainerStyled = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 100px 1fr;
   gap: 16px;
 
   & .teacher-info {
@@ -78,8 +67,8 @@ function TeacherDisciplinePage(): JSX.Element {
   const router = useRouter()
   const { teacherId, disciplineId } = router.query
 
-  const [cclass, setCclass] = useState<IDiscipline>(exampleClass)
-  const [comments, setComments] = useState<IComment[]>(cclass?.comments)
+  const [discipline, setDiscipline] = useState<IDiscipline>()
+  const [comments, setComments] = useState<IComment[]>([])
 
   const handleAgree = (id: number, isAgree: boolean): void => {
     setComments(comments => {
@@ -107,6 +96,29 @@ function TeacherDisciplinePage(): JSX.Element {
       return newComments
     })
   }
+
+  useEffect(() => {
+    void apiService.getDisciplines().then(disciplines => {
+      const discipline = disciplines.find(
+        discipline =>
+          discipline.teacherId === Number(teacherId) &&
+          discipline.disciplineId === Number(disciplineId),
+      )
+
+      if (discipline == null) return
+
+      setDiscipline(discipline)
+      setComments(
+        discipline.comments.length > 0
+          ? discipline.comments
+          : [
+              { ...exampleComment, id: 1 },
+              { ...exampleComment, id: 2 },
+              { ...exampleComment, id: 3 },
+            ],
+      )
+    })
+  }, [disciplineId, teacherId])
 
   return (
     <ContainerStyled>
@@ -138,8 +150,8 @@ function TeacherDisciplinePage(): JSX.Element {
         </div>
 
         <div className="teacher-info">
-          <h2>{cclass.teacherName}</h2>
-          <h3>{cclass.disciplineName}</h3>
+          <h2>{discipline?.teacherName}</h2>
+          <h3>{discipline?.disciplineName}</h3>
         </div>
       </TeacherContainerStyled>
 
