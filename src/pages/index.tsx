@@ -6,8 +6,8 @@ import {
   IconButton,
   LinkButton,
 } from '../components/Button'
-import SearchCard from '../components/Card/SearchResult'
 import { CommentInput } from '../components/CommentInput'
+import { SearchCard } from '../components/SearchCard'
 
 const exampleComment: IComment = {
   id: 0,
@@ -37,7 +37,7 @@ export default function Home(): JSX.Element {
       </div>
 
       <div>
-        <SearchCard></SearchCard>
+        <SearchCard disciplineName="PC" teacherName="Vinicius" />
       </div>
 
       <div className="">

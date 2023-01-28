@@ -6,8 +6,8 @@ const TEACHER_IMG =
   'https://www.provafacilnaweb.com.br/wp-content/uploads/2020/10/retencao-de-alunos-entenda-o-papel-do-professor-para-evitar-a-evasao-academica-capa-2048x1367-1-1024x684.jpg'
 
 const TeacherContainerStyled = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 100px 1fr;
   gap: 16px;
 
   & .teacher-info {
@@ -35,11 +35,22 @@ const PaperStyled = styled(Paper)`
   flex-direction: row;
   padding: 10px;
   border-radius: 10px;
+  width: 100%;
 `
 
-export default function searchCard(): JSX.Element {
+export interface SearchCardProps {
+  teacherName: string
+  disciplineName: string
+  style?: React.CSSProperties
+}
+
+export function SearchCard({
+  disciplineName,
+  teacherName,
+  style,
+}: SearchCardProps): JSX.Element {
   return (
-    <PaperStyled elevation={3}>
+    <PaperStyled elevation={3} style={style}>
       <TeacherContainerStyled>
         <div
           style={{
@@ -58,8 +69,8 @@ export default function searchCard(): JSX.Element {
           />
         </div>
         <div className="teacher-info">
-          <h2>Chacon</h2>
-          <h3>Técnicas de Programação</h3>
+          <h2>{teacherName}</h2>
+          <h3>{disciplineName}</h3>
         </div>
       </TeacherContainerStyled>
     </PaperStyled>

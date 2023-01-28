@@ -24,7 +24,7 @@ const exampleComment: IComment = {
   disagreed: true,
 }
 
-const exampleClass: IClass = {
+const exampleClass: IDiscipline = {
   teacherId: 0,
   disciplineId: 0,
   disciplineName: 'Matemática',
@@ -78,8 +78,8 @@ function TeacherDisciplinePage(): JSX.Element {
   const router = useRouter()
   const { teacherId, disciplineId } = router.query
 
-  const [cclass, setCclass] = useState<IClass>(exampleClass)
-  const [comments, setComments] = useState<IComment[]>(cclass.comments)
+  const [cclass, setCclass] = useState<IDiscipline>(exampleClass)
+  const [comments, setComments] = useState<IComment[]>(cclass?.comments)
 
   const handleAgree = (id: number, isAgree: boolean): void => {
     setComments(comments => {
