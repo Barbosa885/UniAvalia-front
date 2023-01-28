@@ -22,7 +22,7 @@ const exampleComment: IComment = {
   date: new Date(),
   semester: '2021.1',
   agreed: false,
-  disagreed: true,
+  disagreed: false,
 }
 
 const ContainerStyled = styled.div`

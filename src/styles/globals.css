@@ -8,3 +8,9 @@ body {
   background-color: #e5faff;
   box-sizing: border-box;
 }
+
+#__next {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}

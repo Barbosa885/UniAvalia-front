@@ -1,9 +1,6 @@
 import styled from '@emotion/styled'
-import { SearchRounded } from '@mui/icons-material'
 import { TextField, TextFieldProps } from '@mui/material'
-import { useRouter } from 'next/router'
 
-import { IconButton } from '../Button'
 import { Switch } from '../Switch'
 
 const StyledForm = styled('form')({
@@ -30,19 +27,10 @@ export const SearchBar = ({
   setIsTeacher,
   ...props
 }: SearchBarProps): JSX.Element => {
-  const router = useRouter()
-
   return (
     <StyledForm>
       <div className="input-container">
         <TextField placeholder="Pesquise aqui" fullWidth {...props} />
-        <IconButton
-          filled
-          size="large"
-          onClick={router.back}
-          color="primary"
-          Icon={SearchRounded}
-        />
       </div>
 
       <Switch isTeacher={isTeacher} setIsTeacher={setIsTeacher} />

@@ -8,19 +8,6 @@ import {
 } from '../components/Button'
 import { CommentInput } from '../components/CommentInput'
 import { SearchCard } from '../components/SearchCard'
-
-const exampleComment: IComment = {
-  id: 0,
-  message:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia',
-  agrees: 15,
-  disagrees: 3,
-  date: new Date(),
-  semester: '2021.1',
-  agreed: false,
-  disagreed: true,
-}
-
 export default function Home(): JSX.Element {
   return (
     <>
