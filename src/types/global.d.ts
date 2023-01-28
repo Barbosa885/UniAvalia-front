@@ -1,4 +1,4 @@
-declare interface IClass {
+declare interface IDiscipline {
   teacherId: number
   teacherName: string
 

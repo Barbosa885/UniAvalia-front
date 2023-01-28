@@ -1,6 +1,8 @@
-import { useState } from 'react'
+/* eslint-disable multiline-ternary */
+import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { ArrowBackRounded } from '@mui/icons-material'
+import { CircularProgress } from '@mui/material'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -8,6 +10,7 @@ import { useRouter } from 'next/router'
 import { IconButton } from '../../../../components/Button'
 import { Comment } from '../../../../components/Comment'
 import { CommentInput } from '../../../../components/CommentInput'
+import apiService from '../../../../services/api'
 
 const TEACHER_IMG =
   'https://www.provafacilnaweb.com.br/wp-content/uploads/2020/10/retencao-de-alunos-entenda-o-papel-do-professor-para-evitar-a-evasao-academica-capa-2048x1367-1-1024x684.jpg'
@@ -21,31 +24,20 @@ const exampleComment: IComment = {
   date: new Date(),
   semester: '2021.1',
   agreed: false,
-  disagreed: true,
-}
-
-const exampleClass: IClass = {
-  teacherId: 0,
-  disciplineId: 0,
-  disciplineName: 'Matemática',
-  teacherName: 'João da Silva',
-  comments: [
-    { ...exampleComment, id: 1 },
-    { ...exampleComment, id: 2 },
-    { ...exampleComment, id: 3 },
-  ],
+  disagreed: false,
 }
 
 const ContainerStyled = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 32px;
   padding: 16px 32px;
 `
 
 const TeacherContainerStyled = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 100px 1fr;
   gap: 16px;
 
   & .teacher-info {
@@ -78,8 +70,9 @@ function TeacherDisciplinePage(): JSX.Element {
   const router = useRouter()
   const { teacherId, disciplineId } = router.query
 
-  const [cclass, setCclass] = useState<IClass>(exampleClass)
-  const [comments, setComments] = useState<IComment[]>(cclass.comments)
+  const [discipline, setDiscipline] = useState<IDiscipline>()
+  const [comments, setComments] = useState<IComment[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleAgree = (id: number, isAgree: boolean): void => {
     setComments(comments => {
@@ -108,6 +101,35 @@ function TeacherDisciplinePage(): JSX.Element {
     })
   }
 
+  useEffect(() => {
+    setIsLoading(true)
+    void apiService
+      .getDisciplines()
+      .then(disciplines => {
+        const discipline = disciplines.find(
+          discipline =>
+            discipline.teacherId === Number(teacherId) &&
+            discipline.disciplineId === Number(disciplineId),
+        )
+
+        if (discipline == null) return
+
+        setDiscipline(discipline)
+        setComments(
+          discipline.comments.length > 0
+            ? discipline.comments
+            : [
+                { ...exampleComment, id: 1 },
+                { ...exampleComment, id: 2 },
+                { ...exampleComment, id: 3 },
+              ],
+        )
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [disciplineId, teacherId])
+
   return (
     <ContainerStyled>
       <div className="">
@@ -119,50 +141,65 @@ function TeacherDisciplinePage(): JSX.Element {
         />
       </div>
 
-      <TeacherContainerStyled>
+      {isLoading ? (
         <div
           style={{
-            width: 100,
-            height: 100,
-            borderRadius: 9999,
-            position: 'relative',
-            overflow: 'hidden',
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          <Image
-            src={TEACHER_IMG}
-            alt="Professor"
-            fill
-            style={{ objectFit: 'cover' }}
-          />
+          <CircularProgress />
         </div>
-
-        <div className="teacher-info">
-          <h2>{cclass.teacherName}</h2>
-          <h3>{cclass.disciplineName}</h3>
-        </div>
-      </TeacherContainerStyled>
-
-      <CommentInput handleSubmit={() => undefined} />
-
-      <div className="">
-        <h4 style={{ marginTop: 10 }}>Comentários</h4>
-
-        <CommentsContainerStyled>
-          {comments.map(comment => (
-            <Comment
-              key={comment.id}
-              comment={comment}
-              onAgree={() => {
-                handleAgree(comment.id, true)
+      ) : (
+        <>
+          <TeacherContainerStyled>
+            <div
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 9999,
+                position: 'relative',
+                overflow: 'hidden',
               }}
-              onDisagree={() => {
-                handleAgree(comment.id, false)
-              }}
-            />
-          ))}
-        </CommentsContainerStyled>
-      </div>
+            >
+              <Image
+                src={TEACHER_IMG}
+                alt="Professor"
+                fill
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+
+            <div className="teacher-info">
+              <h2>{discipline?.teacherName}</h2>
+              <h3>{discipline?.disciplineName}</h3>
+            </div>
+          </TeacherContainerStyled>
+
+          <CommentInput handleSubmit={() => undefined} />
+
+          <div className="">
+            <h4 style={{ marginTop: 10 }}>Comentários</h4>
+
+            <CommentsContainerStyled>
+              {comments.map(comment => (
+                <Comment
+                  key={comment.id}
+                  comment={comment}
+                  onAgree={() => {
+                    handleAgree(comment.id, true)
+                  }}
+                  onDisagree={() => {
+                    handleAgree(comment.id, false)
+                  }}
+                />
+              ))}
+            </CommentsContainerStyled>
+          </div>
+        </>
+      )}
     </ContainerStyled>
   )
 }
