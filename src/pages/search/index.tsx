@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import styled from '@emotion/styled'
+import { useRouter } from 'next/router'
 
 import SearchBar from '../../components/SearchBar'
 import { SearchCard } from '../../components/SearchCard'
@@ -26,6 +27,8 @@ const removeAccentsLowerCase = (str: string): string =>
     .toLowerCase()
 
 export default function Search(): JSX.Element {
+  const router = useRouter()
+
   const [disciplines, setDisciplines] = useState<IDiscipline[]>([])
   const [search, setSearch] = useState<string>('')
   const [isTeacher, setIsTeacher] = useState(true)
@@ -45,7 +48,7 @@ export default function Search(): JSX.Element {
   const notFoundString = useMemo(
     () =>
       isTeacher
-        ? 'Nenhum professor encontrado.'
+        ? 'Nenhum professor encontrado'
         : 'Nenhuma disciplina encontrada',
     [isTeacher],
   )
@@ -69,18 +72,22 @@ export default function Search(): JSX.Element {
       {filteredDisciplines.length > 0 ? (
         <Virtuoso
           data={filteredDisciplines}
-          itemContent={(i, cclass) => (
+          itemContent={(i, discipline) => (
             <SearchCard
-              key={`${cclass.disciplineId}-${cclass.teacherId}`}
-              disciplineName={cclass.disciplineName}
-              teacherName={cclass.teacherName}
-              style={{ width: '93%', margin: '16px auto' }}
+              key={`${discipline.disciplineId}-${discipline.teacherId}`}
+              disciplineName={discipline.disciplineName}
+              teacherName={discipline.teacherName}
+              style={{ width: '95%', margin: '16px auto' }}
+              onClick={() => {
+                void router.push(
+                  `/teachers/${discipline.teacherId}/disciplines/${discipline.disciplineId}`,
+                )
+              }}
             />
           )}
           style={{
             position: 'relative',
             width: '100%',
-            // scrollbarColor: 'transparent transparent',
           }}
         />
       ) : (

@@ -1,9 +1,22 @@
 import styled from '@emotion/styled'
-import { Paper } from '@mui/material'
+import { ButtonBase, ButtonBaseProps, Paper } from '@mui/material'
 import Image from 'next/image'
 
 const TEACHER_IMG =
   'https://www.provafacilnaweb.com.br/wp-content/uploads/2020/10/retencao-de-alunos-entenda-o-papel-do-professor-para-evitar-a-evasao-academica-capa-2048x1367-1-1024x684.jpg'
+
+const ButtonBaseStyled = styled(ButtonBase)`
+  display: flex;
+  border-radius: 10px;
+`
+
+const PaperStyled = styled(Paper)`
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  border-radius: 10px;
+  width: 100%;
+`
 
 const TeacherContainerStyled = styled.div`
   display: grid;
@@ -17,6 +30,9 @@ const TeacherContainerStyled = styled.div`
 
     h2,
     h3 {
+      text-align: left;
+      text-transform: none;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
     }
 
@@ -30,49 +46,43 @@ const TeacherContainerStyled = styled.div`
   }
 `
 
-const PaperStyled = styled(Paper)`
-  display: flex;
-  flex-direction: row;
-  padding: 10px;
-  border-radius: 10px;
-  width: 100%;
-`
-
-export interface SearchCardProps {
+export interface SearchCardProps extends ButtonBaseProps {
   teacherName: string
   disciplineName: string
-  style?: React.CSSProperties
 }
 
 export function SearchCard({
   disciplineName,
   teacherName,
-  style,
+  ...props
 }: SearchCardProps): JSX.Element {
   return (
-    <PaperStyled elevation={3} style={style}>
-      <TeacherContainerStyled>
-        <div
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 9999,
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          <Image
-            src={TEACHER_IMG}
-            alt="Imagem do professor"
-            fill
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
-        <div className="teacher-info">
-          <h2>{teacherName}</h2>
-          <h3>{disciplineName}</h3>
-        </div>
-      </TeacherContainerStyled>
-    </PaperStyled>
+    <ButtonBaseStyled {...props}>
+      <PaperStyled elevation={3}>
+        <TeacherContainerStyled>
+          <div
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 9999,
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            <Image
+              src={TEACHER_IMG}
+              alt="Imagem do professor"
+              sizes="100%"
+              fill
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+          <div className="teacher-info">
+            <h2>{teacherName}</h2>
+            <h3>{disciplineName}</h3>
+          </div>
+        </TeacherContainerStyled>
+      </PaperStyled>
+    </ButtonBaseStyled>
   )
 }
