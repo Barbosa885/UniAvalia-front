@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import styled from '@emotion/styled'
+import { CircularProgress } from '@mui/material'
 import { useRouter } from 'next/router'
 
 import SearchBar from '../../components/SearchBar'
@@ -32,6 +33,7 @@ export default function Search(): JSX.Element {
   const [disciplines, setDisciplines] = useState<IDiscipline[]>([])
   const [search, setSearch] = useState<string>('')
   const [isTeacher, setIsTeacher] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   const filteredDisciplines = useMemo(() => {
     const searchLower = removeAccentsLowerCase(search)
@@ -54,7 +56,13 @@ export default function Search(): JSX.Element {
   )
 
   useEffect(() => {
-    void apiService.getDisciplines().then(setDisciplines)
+    setIsLoading(true)
+    void apiService
+      .getDisciplines()
+      .then(setDisciplines)
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [])
 
   return (
@@ -69,7 +77,9 @@ export default function Search(): JSX.Element {
       />
 
       {/* eslint-disable multiline-ternary */}
-      {filteredDisciplines.length > 0 ? (
+      {isLoading ? (
+        <CircularProgress style={{ margin: '0 auto' }} />
+      ) : filteredDisciplines.length > 0 ? (
         <Virtuoso
           data={filteredDisciplines}
           itemContent={(i, discipline) => (
