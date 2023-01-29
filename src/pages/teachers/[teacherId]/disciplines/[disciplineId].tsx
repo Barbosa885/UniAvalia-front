@@ -101,6 +101,21 @@ function TeacherDisciplinePage(): JSX.Element {
     })
   }
 
+  const addNewComment = (message: string): void => {
+    const comment: IComment = {
+      id: comments.length + 1,
+      message,
+      agreed: false,
+      disagreed: false,
+      agrees: 0,
+      disagrees: 0,
+      date: new Date(),
+      semester: '2022.1',
+    }
+
+    setComments(comments => [...comments, comment])
+  }
+
   useEffect(() => {
     setIsLoading(true)
     void apiService
@@ -178,24 +193,26 @@ function TeacherDisciplinePage(): JSX.Element {
             </div>
           </TeacherContainerStyled>
 
-          <CommentInput handleSubmit={() => undefined} />
+          <CommentInput handleSubmit={addNewComment} />
 
           <div className="">
             <h4 style={{ marginTop: 10 }}>Comentários</h4>
 
             <CommentsContainerStyled>
-              {comments.map(comment => (
-                <Comment
-                  key={comment.id}
-                  comment={comment}
-                  onAgree={() => {
-                    handleAgree(comment.id, true)
-                  }}
-                  onDisagree={() => {
-                    handleAgree(comment.id, false)
-                  }}
-                />
-              ))}
+              {comments
+                .sort((a, b) => Number(b.date) - Number(a.date))
+                .map(comment => (
+                  <Comment
+                    key={comment.id}
+                    comment={comment}
+                    onAgree={() => {
+                      handleAgree(comment.id, true)
+                    }}
+                    onDisagree={() => {
+                      handleAgree(comment.id, false)
+                    }}
+                  />
+                ))}
             </CommentsContainerStyled>
           </div>
         </>
