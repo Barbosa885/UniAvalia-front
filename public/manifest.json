@@ -4,7 +4,7 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "UniAvalia App",
+    "name": "UniAvalia",
     "short_name": "UniAvalia",
     "description": "...",
     "icons": [
@@ -21,11 +21,6 @@
         {
             "src": "/icon-384x384.png",
             "sizes": "384x384",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-512x512.png",
-            "sizes": "512x512",
             "type": "image/png"
         }
     ]
