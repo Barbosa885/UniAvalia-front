@@ -4,7 +4,8 @@ const withPWA = require('next-pwa')({
 })
 
 module.exports = withPWA({
+  reactStrictMode: true,
   images: {
-    domains: ['www.provafacilweb.com.br'],
-  },
-});
+    domains: ['www.provafacilnaweb.com.br'],
+  }
+})
