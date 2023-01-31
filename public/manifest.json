@@ -1,13 +1,12 @@
 {
-    "theme_color": "#f69435",
-    "background_color": "#070400",
+    "theme_color": "#0288d2",
+    "background_color": "#000000",
     "display": "standalone",
     "scope": "/",
-    "lang": "pt-BR",
-    "start_url": "/https://uniavalia.vercel.app/",
+    "start_url": "/",
     "name": "UniAvalia",
     "short_name": "UniAvalia",
-    "description": "",
+    "description": "...",
     "icons": [
         {
             "src": "/icon-192x192.png",
@@ -22,11 +21,6 @@
         {
             "src": "/icon-384x384.png",
             "sizes": "384x384",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-512x512.png",
-            "sizes": "512x512",
             "type": "image/png"
         }
     ]
