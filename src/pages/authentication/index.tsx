@@ -2,7 +2,6 @@ import styled from '@emotion/styled'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 
-import footer from '../../assets/footer.png'
 import logoSVG from '../../assets/logo.svg'
 import { Button } from '../../components/Button'
 
@@ -47,10 +46,6 @@ function Authentication(): JSX.Element {
           Anônimo
         </Button>
       </ButtonDiv>
-      <Footer>
-        {/* eslint-disable @typescript-eslint/no-unsafe-assignment */}
-        <Image src={footer} alt="Footer" />
-      </Footer>
     </Container>
   )
 }
