@@ -35,6 +35,7 @@ export const CommentInput = ({
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     handleSubmitCb(comment)
+    setComment('')
   }
 
   return (
