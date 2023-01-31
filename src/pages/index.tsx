@@ -92,7 +92,7 @@ export default function Home(): JSX.Element {
             você em cada disciplina.
           </p>
 
-          <Button rounded href="search">
+          <Button rounded href="authentication">
             Comece agora
           </Button>
         </div>
