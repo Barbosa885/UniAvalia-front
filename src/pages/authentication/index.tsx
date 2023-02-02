@@ -40,8 +40,12 @@ function Authentication(): JSX.Element {
         <Image src={logoSVG} alt="Logo" />
       </Wrapper>
       <ButtonDiv>
-        <Button fullWidth>Aluno</Button>
-        <Button fullWidth>Professor</Button>
+        <Button fullWidth disabled>
+          Aluno
+        </Button>
+        <Button fullWidth disabled>
+          Professor
+        </Button>
         <Button fullWidth href="search">
           Anônimo
         </Button>
